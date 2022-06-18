@@ -1,0 +1,9 @@
+name: Challenge
+version: 1.0.0
+main: com.azoraqua.challenge.ChallengePlugin
+api-version: 1.19
+
+commands:
+  motd:
+    description: Change the motd.
+    permission: challenge.motd

@@ -1,0 +1,9 @@
+modules:
+  bow:
+    enabled: true
+  motd:
+    enabled: true
+  recipe:
+    enabled: true
+  torch:
+    enabled: true
