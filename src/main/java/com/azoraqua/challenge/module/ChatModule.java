@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -38,7 +39,7 @@ public final class ChatModule extends Module implements Listener {
         e.setQuitMessage(player.getDisplayName() + ChatColor.YELLOW + " left.");
     }
 
-    @EventHandler
+    @EventHandler(priority=EventPriority.HIGHEST)
     public void on(AsyncPlayerChatEvent e) {
         final Player player = e.getPlayer();
         final String message = e.getMessage();
