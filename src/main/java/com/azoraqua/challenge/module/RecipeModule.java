@@ -6,7 +6,11 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+
+import java.util.Arrays;
+import java.util.List;
 
 public final class RecipeModule extends Module {
     private Plugin plugin;
@@ -21,8 +25,12 @@ public final class RecipeModule extends Module {
         Bukkit.addRecipe(createGoldIngot());
         Bukkit.addRecipe(createRedstone());
         Bukkit.addRecipe(createCoalBlock());
+        Bukkit.addRecipe(createPrismarineShard());
         Bukkit.addRecipe(createDiamond());
         Bukkit.addRecipe(createEnchantedGoldenApple());
+        Bukkit.addRecipe(createIronArmourToIngot());
+        Bukkit.addRecipe(createGoldArmourToIngot());
+        Bukkit.addRecipe(createDiamondArmourToIngot());
     }
 
     private Recipe createEnchantedGoldenApple() {
@@ -32,12 +40,17 @@ public final class RecipeModule extends Module {
                 .setIngredient('O', Material.APPLE);
     }
 
-    private Recipe createDiamond() {
-        return new ShapedRecipe(new NamespacedKey(plugin, "diamond"), new ItemStack(Material.DIAMOND))
-                .shape("XXX", "OOO", "III")
+    private Recipe createPrismarineShard() {
+        return new ShapedRecipe(new NamespacedKey(plugin, "prismarine_Shard"), new ItemStack(Material.PRISMARINE_SHARD))
+                .shape("XCX", "COC", "ICI")
                 .setIngredient('X', Material.GOLD_INGOT)
                 .setIngredient('O', Material.COPPER_INGOT)
-                .setIngredient('I', Material.IRON_INGOT);
+                .setIngredient('I', Material.IRON_INGOT)
+                .setIngredient('C', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
+    }
+
+    private Recipe createDiamond() {
+        return new FurnaceRecipe(new NamespacedKey(plugin, "diamond"), new ItemStack(Material.DIAMOND, 1), new RecipeChoice.MaterialChoice(Material.PRISMARINE_SHARD), .5f, 10 * 20);
     }
 
     private Recipe createCoalBlock() {
@@ -77,5 +90,35 @@ public final class RecipeModule extends Module {
         return new ShapedRecipe(new NamespacedKey(plugin, "redstone"), new ItemStack(Material.REDSTONE, 4))
                 .shape("XX", "XX")
                 .setIngredient('X', Material.COPPER_INGOT);
+    }
+
+    private Recipe createIronArmourToIngot() {
+        return new FurnaceRecipe(
+                new NamespacedKey(plugin, "iron_armour_to_ingot"),
+                new ItemStack(Material.IRON_INGOT, 2),
+                new RecipeChoice.MaterialChoice(Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS),
+                0.125f,
+                15 * 20
+        );
+    }
+
+    private Recipe createGoldArmourToIngot() {
+        return new FurnaceRecipe(
+                new NamespacedKey(plugin, "gold_armour_to_ingot"),
+                new ItemStack(Material.GOLD_INGOT, 2),
+                new RecipeChoice.MaterialChoice(Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS),
+                0.125f,
+                10 * 20
+        );
+    }
+
+    private Recipe createDiamondArmourToIngot() {
+        return new FurnaceRecipe(
+                new NamespacedKey(plugin, "diamond_armour_to_ingot"),
+                new ItemStack(Material.DIAMOND, 2),
+                new RecipeChoice.MaterialChoice(Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS),
+                0.25f,
+                20 * 20
+        );
     }
 }

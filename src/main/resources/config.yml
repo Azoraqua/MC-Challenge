@@ -11,3 +11,7 @@ modules:
     enabled: true
   tab:
     enabled: true
+  spawner:
+    enabled: true
+  adventure:
+    enabled: true

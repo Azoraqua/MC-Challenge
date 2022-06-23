@@ -40,7 +40,7 @@ public final class BowModule extends Module implements Listener {
             final PlayerInventory inventory = player.getInventory();
             final ItemStack item = inventory.getItemInOffHand();
 
-            if (item != null && item.getType() != Material.AIR) {
+            if (item != null && item.getType() != Material.AIR && item.getType().isBlock() || item.getType().isSolid()) {
                 block.getRelative(BlockFace.UP).setType(item.getType(), true);
                 projectile.remove();
 
